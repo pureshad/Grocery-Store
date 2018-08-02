@@ -1,0 +1,35 @@
+﻿@model Data.Models.IndevidualButtonPartial
+
+<td style="width:150px;">
+    @Html.Partial("_IndevidualButtonPartial",
+                        new Data.Models.IndevidualButtonPartial
+                        {
+                            
+                            Page = "Edit",
+                            ButtonType = "btn-primary",
+                            Glyph = "pencil",
+                            Id = Model.Id
+
+
+                        })
+    @Html.Partial("_IndevidualButtonPartial",
+                        new Data.Models.IndevidualButtonPartial
+                        {
+                            Page = "Details",
+                            ButtonType = "btn-success",
+                            Glyph = "list",
+                            Id = Model.Id
+
+
+                        })
+    @Html.Partial("_IndevidualButtonPartial",
+                        new Data.Models.IndevidualButtonPartial
+                        {
+                            Page = "Delete",
+                            ButtonType = "btn-danger",
+                            Glyph = "trash",
+                            Id = Model.Id
+
+
+                        })
+</td>

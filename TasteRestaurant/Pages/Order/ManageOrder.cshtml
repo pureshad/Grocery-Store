@@ -1,0 +1,52 @@
+﻿@page
+@model TasteRestaurant.Pages.Order.ManageOrderModel
+@using TasteRestaurant.Utility
+@{
+    ViewData["Title"] = "ManageOrder";
+}
+
+<h2>ManageOrder</h2>
+
+<form method="post">
+    @if (Model.OrderDetailsViewModels.Count > 0)
+    {
+        @foreach (var item in Model.OrderDetailsViewModels)
+        {
+            <div class="thumbnail row">
+                @Html.Partial("_IndevidualOrderDetails", item)
+                <div class="col-sm-2">
+                    @if (item.OrderHeader.Status.Equals(StaticDetails.StatusSubmited))
+                    {
+                        <button type="submit" asp-page-handler="OrderPrepare" asp-route-orderId="@item.OrderHeader.Id" class="btn btn-primary form-control">
+                            <span class="glyphicon glyphicon-ok">Start Cooking!</span>
+                        </button>
+
+                        <button type="submit" asp-page-handler="OrderCancel" asp-route-orderId="@item.OrderHeader.Id" class="btn btn-danger form-control">
+                            <span class="glyphicon glyphicon-remove">Cencel Order!</span>
+                        </button>
+                    }
+                    else
+                    {
+                        @if (item.OrderHeader.Status.Equals(StaticDetails.StatusInProgress))
+                        {
+
+                            <button type="submit" asp-page-handler="OrderReady" asp-route-orderId="@item.OrderHeader.Id" class="btn btn-success form-control">
+                                <span class="glyphicon glyphicon-cutlery">Order Prepered!</span>
+                            </button>
+
+                            <button type="submit" asp-page-handler="OrderCancel" asp-route-orderId="@item.OrderHeader.Id" class="btn btn-danger form-control">
+                                <span class="glyphicon glyphicon-remove">Cencel Order!</span>
+                            </button>
+
+                        }
+                    }
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No Orders Availvable...</p>
+    }
+</form>
+

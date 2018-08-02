@@ -1,0 +1,70 @@
+﻿@page
+@model TasteRestaurant.Pages.Order.OrderPickupModel
+@using TasteRestaurant.Utility
+
+@{
+    ViewData["Title"] = "OrderPickup";
+}
+
+<h2>OrderPickup</h2>
+
+<form method="get" asp-page="OrderPickup">
+    <div style="height:60px;">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    <label class="radio-inline">
+                        @Html.RadioButton("option", "name") Name
+                    </label>
+                    <label class="radio-inline">
+                        @Html.RadioButton("option", "email") Email
+                    </label>
+                    <label class="radio-inline">
+                        @Html.RadioButton("option", "phonenumber") PhoneNumber
+                    </label>
+                    <label class="radio-inline">
+                        @Html.RadioButton("option", "order") Order no
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="pull-right">
+                    <button type="submit" value="Search" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-search"></span> Search
+                    </button>
+                </div>
+                <div class="pull-right">
+                    @Html.Editor("search", new { htmlAttributes = new { @class="form-control"} })
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <br />
+    @if (Model.OrderDetailsViewModels.Count > 0)
+    {
+        @foreach (var item in Model.OrderDetailsViewModels)
+        {
+            <div class="thumbnail row">
+                @Html.Partial("_IndevidualOrderDetails", item)
+                <div class="col-sm-2">
+                    @if (item.OrderHeader.Status.Equals(StaticDetails.StatusReady))
+                    {
+                        <a asp-page="OrderPickupDetails" asp-route-orderId="@item.OrderHeader.Id" class="btn btn-success glyphicon">
+                            <span class="glyphicon glyphicon-list"></span>
+                            Pickup Details
+                        </a>
+                    }
+                    else
+                    {
+                            <button type="submit" disabled class="btn btn-primary">@item.OrderHeader.Status</button>
+                    }
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No Orders Availvable...</p>
+    }
+</form>

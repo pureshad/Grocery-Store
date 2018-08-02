@@ -1,0 +1,23 @@
+﻿@page
+@model TasteRestaurant.Pages.Order.OrderConfirmationModel
+@{
+    ViewData["Title"] = "OrderConfirmation";
+}
+
+<h2>Order Confirmation Page</h2>
+
+@if (Model.OrderDetailsViewModel.OrderHeader != null)
+{
+    <div class="thumbnail row">
+        @Html.Partial("_IndevidualOrderDetails", Model.OrderDetailsViewModel)
+    </div>
+
+    <a asp-page="../Index" class="btn btn-success">Place another Order</a>
+}
+else
+{
+    <div class="text-danger">
+        Error... Please try again
+    </div>
+}
+
